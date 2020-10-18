@@ -29,6 +29,7 @@ var sensitivity = 0;
 var radioCol1 = 0;
 var radioCol2 = 0;
 var radioCol3 = 0;
+var doNotDistrub = false;
 
 /**
  * Loads a the camera to be used in the demo
@@ -143,7 +144,9 @@ async function findPoses(video, aves, maxlen) {
       postureHistory = postureHistory.concat(posturePeriod)
 
       if (posturePeriod.length >= maxlen) {
-        alert("Bad boy");
+        if (!doNotDistrub) {
+          alert("Bad boy");
+        }
         console.log("Bad boy")
       } else {
         console.log("Good posture")
@@ -163,7 +166,6 @@ async function findPoses(video, aves, maxlen) {
 }
 
 async function calibrate(video) {
-  console.log("Inside");
   let timer = 10000;
   let aves = {
     'nose': {
@@ -183,16 +185,16 @@ async function calibrate(video) {
     }
   }
 
+  document.getElementById("main").style.display = 'inline';
+  
+  alert("Calibration Started: Press okay and maintain good posture for 10 seconds");
   while (timer > 0) {
-    console.log("reached while");
     const posenet = require('@tensorflow-models/posenet');
 
     async function estimatePoseOnImage(video) {
-      console.log("entered estimate");
 
       // load the posenet model from a checkpoint
       const net = await posenet.load();
-      console.log("still in estimate");
 
       const pose = await net.estimateSinglePose(video, {
         flipHorizontal: false
@@ -202,7 +204,6 @@ async function calibrate(video) {
 
 
     const pose = await estimatePoseOnImage(video);
-    console.log("still in while...");
 
     const arr = pose["keypoints"];
 
@@ -250,6 +251,8 @@ async function calibrate(video) {
   aves['leftShoulder']['y'] /= 10;
 
   console.log(aves);
+  alert("Calibration Complete!");
+  document.getElementById("main").style.display = 'none';
   return aves;
 }
 
@@ -269,14 +272,17 @@ export async function bindPage() {
     info.style.display = 'block';
     throw e;
   }
-  console.log("Reached");
   const aves = await calibrate(video);
-  console.log("Calibrated);")
   const postureHistory = await findPoses(video, aves, maxlen);
 }
 
 export async function stopScript() {
   gatherVideo = false
+  alert("Work is over!")
+}
+
+export async function toggleDistrub() {
+  doNotDistrub = !doNotDistrub
 }
 
 export async function setRadio(title, value) {
