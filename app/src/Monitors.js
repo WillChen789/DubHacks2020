@@ -47,9 +47,10 @@ export class Monitors extends React.Component {
   access(){
     console.log(this.state.posture);
     var temp = this.state.posture;
-    this.state.posture = status() ? "good" : "bad";
-    if (temp != this.state.posture){
+    var now = status() ? "good" : "bad";
+    if (temp != now){
       this.forceUpdate();
+      this.setState({posture:now});
     }
     return this.state.posture;
   }
