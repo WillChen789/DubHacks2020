@@ -77,4 +77,14 @@ code {
   align-content: flex-start;
 }
 
+.resize {
+  width: auto;
+  height: 300px;
+}
+
+.resize1 {
+  width: auto;
+  height: 300px;
+}
+
 .clear { clear:both;}

@@ -4,6 +4,8 @@ import Settings from './Settings.js'
 import Monitors from './Monitors.js'
 import BottomButtons from './Bottom_buttons'
 import './index.css';
+import pie from './assets/pie.png'
+import line from './assets/line.png'
 
 import { bindPage, stopScript, status } from './camera.js'
 
@@ -21,7 +23,7 @@ class App extends React.Component {
       <div className="App">
           <div>
               <div id="main" style={{display: 'none'}}>
-                  <video id="video" playsInline style={{display: 'none'}}>
+                  <video id="video" playsInline style={{display: 'inline'}}>
                   </video>
                   <canvas id="output" />
               </div>
@@ -56,6 +58,10 @@ class App extends React.Component {
         </div>
         <div className="clear">
           <BottomButtons className="Bottom"/>
+        </div>
+        <div id="graphs" style={{display: 'none'}}>
+          <img class="resize" src={line} style={{display: 'inline'}}></img>
+          <img class="resize1" src={pie} style={{display: 'inline'}}></img>
         </div>
       </div>
     );
