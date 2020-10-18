@@ -35,9 +35,15 @@ h2,
 }
 
 
-.Next {
+.NextLeft {
   display: inline;
   margin: 20px;
+}
+
+.NextRight {
+  display: inline;
+  margin: 20px;
+  background-color: #3f3f3f;
 }
 
 .Bottom {

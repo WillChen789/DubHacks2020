@@ -1,6 +1,6 @@
 .block {
-  display: inline-block;
-  width: 50%;
+  display: inline;
+  width: 40%;
   border: none;
   background-color: #4CAF50;
   padding: 14px 28px;

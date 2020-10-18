@@ -18,7 +18,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="floatL">
-          <div className="Next">
+          <div className="NextLeft">
             <h1>
               Posture?
             </h1>
@@ -35,7 +35,7 @@ class App extends React.Component {
               <Settings settingTitle="Eye Sensitivity"/>
             </div>
           </div>
-          <div className="Next">
+          <div className="NextRight">
             <Monitors/>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Monitors.css';
-import gcircle from './assets/green_circle.png';
-import rcircle from './assets/red_circle.png';
+import gcircle from './assets/green_circle.JPG';
+import rcircle from './assets/red_circle.JPG';
 
 function Monitor(props) {
   let monitor = []

@@ -10,6 +10,7 @@ function Buttons(props) {
             value="calibrateButton"
             className="block"
             title = "CALIBRATE POSTURE">
+            CALIBRATE POSTURE
             </button>
 
             <button
@@ -17,6 +18,7 @@ function Buttons(props) {
             value="clockOutButton"
             className="block"
             title = "I am done working!!!">
+            I am done working!!!
             </button>
         </div>
     )
