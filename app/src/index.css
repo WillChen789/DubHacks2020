@@ -36,5 +36,6 @@ h2,
 
 
 .Next {
-  display: inline-block;
+  display: inline;
+  margin: 20px;
 }
