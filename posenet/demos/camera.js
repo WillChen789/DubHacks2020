@@ -124,11 +124,7 @@ async function findPoses(video, aves, maxlen) {
       200
     );
      
-    poseList.push(pose);
     console.log(pose);
-    //console.log(poseList); // output the list of poses for debugging
-    //console.log(x_Lshoulder);
-    //console.log(y_Lshoulder);
 
     var sideTilt = Posture.sideFaceTilt(x_Leye, y_Leye, x_Reye, y_Reye, 
       aves['leftEye']['x'], aves['leftEye']['y'], 
