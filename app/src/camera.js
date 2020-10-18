@@ -14,12 +14,8 @@
  * limitations under the License.
  * =============================================================================
  */
-import Stats from 'stats.js';
 import * as shoulderUtils from '../../app/src/checkShoulders.js';
 import * as Posture from '../../app/src/postureCheck.js';
-
-import { drawBoundingBox, drawKeypoints, drawSkeleton, isMobile, toggleLoadingUI, tryResNetButtonName, tryResNetButtonText, updateTryResNetButtonDatGuiCss } from './demo_util';
-
 
 const videoWidth = 600;
 const videoHeight = 500;
@@ -45,13 +41,12 @@ async function setupCamera() {
   video.width = videoWidth;
   video.height = videoHeight;
 
-  const mobile = isMobile();
   const stream = await navigator.mediaDevices.getUserMedia({
     'audio': false,
     'video': {
       facingMode: 'user',
-      width: mobile ? undefined : videoWidth,
-      height: mobile ? undefined : videoHeight,
+      width: videoWidth,
+      height: videoHeight,
     },
   });
   video.srcObject = stream;
@@ -110,7 +105,6 @@ async function findPoses(video, aves, maxlen) {
     //var x_R = 
     //var y_R = 
     
-    var x_nose = arr[0]["position"]["x"];
     var y_nose = arr[0]["position"]["y"];
     var x_Leye = arr[1]["position"]["x"];
     var y_Leye = arr[1]["position"]["y"];
@@ -165,7 +159,7 @@ async function findPoses(video, aves, maxlen) {
   return postureHistory;
 }
 
-async function calibrate() {
+async function calibrate(video) {
   let timer = 10000;
   let aves = {
     'nose': {
@@ -197,8 +191,6 @@ async function calibrate() {
       });
       return pose;
     }
-
-    const imageElement = document.getElementById('cat');
 
     const pose = await estimatePoseOnImage(video);
     const arr = pose["keypoints"];
