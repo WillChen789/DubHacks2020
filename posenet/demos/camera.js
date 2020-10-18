@@ -16,7 +16,7 @@
  */
 import Stats from 'stats.js';
 
-import {drawBoundingBox, drawKeypoints, drawSkeleton, isMobile, toggleLoadingUI, tryResNetButtonName, tryResNetButtonText, updateTryResNetButtonDatGuiCss} from './demo_util';
+import { drawBoundingBox, drawKeypoints, drawSkeleton, isMobile, toggleLoadingUI, tryResNetButtonName, tryResNetButtonText, updateTryResNetButtonDatGuiCss } from './demo_util';
 
 const videoWidth = 600;
 const videoHeight = 500;
@@ -29,7 +29,7 @@ const stats = new Stats();
 async function setupCamera() {
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
     throw new Error(
-        'Browser API navigator.mediaDevices.getUserMedia not available');
+      'Browser API navigator.mediaDevices.getUserMedia not available');
   }
 
   const video = document.getElementById('video');
@@ -60,29 +60,35 @@ async function loadVideo() {
 
   return video;
 }
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 /**
  * Feeds an image to posenet to estimate poses - this is where the magic
  * happens. This function loops with a requestAnimationFrame method.
  */
-function findPoses(video) {
-  const posenet = require('@tensorflow-models/posenet');
+async function findPoses(video) {
+  while (1) {
+    const posenet = require('@tensorflow-models/posenet');
 
-  async function estimatePoseOnImage(video) {
-    // load the posenet model from a checkpoint
-    const net = await posenet.load();
-  
-    const pose = await net.estimateSinglePose(video, {
-      flipHorizontal: false
-    });
-    return pose;
+    async function estimatePoseOnImage(video) {
+      // load the posenet model from a checkpoint
+      const net = await posenet.load();
+
+      const pose = await net.estimateSinglePose(video, {
+        flipHorizontal: false
+      });
+      return pose;
+    }
+
+    const imageElement = document.getElementById('cat');
+
+    const pose = estimatePoseOnImage(video);
+    await sleep(5000);
+    console.log(pose);
   }
-  
-  const imageElement = document.getElementById('cat');
-  
-  const pose = estimatePoseOnImage(video);
-  
-  console.log(pose);
-
 }
 
 /**
@@ -97,15 +103,15 @@ export async function bindPage() {
   } catch (e) {
     let info = document.getElementById('info');
     info.textContent = 'this browser does not support video capture,' +
-        'or this device does not have a camera';
+      'or this device does not have a camera';
     info.style.display = 'block';
     throw e;
   }
-  
+
   findPoses(video);
 }
 
 navigator.getUserMedia = navigator.getUserMedia ||
-    navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+  navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 // kick off the demo
 bindPage();
