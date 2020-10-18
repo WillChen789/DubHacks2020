@@ -20,9 +20,12 @@ import * as Posture from '../../app/src/postureCheck.js';
 
 import { drawBoundingBox, drawKeypoints, drawSkeleton, isMobile, toggleLoadingUI, tryResNetButtonName, tryResNetButtonText, updateTryResNetButtonDatGuiCss } from './demo_util';
 
-const videoWidth = 600;
-const videoHeight = 500;
-const stats = new Stats();
+/**
+ * State of the session
+ */
+var gatherVideo = true;
+var maxlen = 10;
+var sensitivity = 0;
 
 /**
  * Loads a the camera to be used in the demo
@@ -67,10 +70,6 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-var poseList = [];  // running list of poses to append to
-
-
-
 /**
  * Feeds an image to posenet to estimate poses - this is where the magic
  * happens. This function loops with a requestAnimationFrame method.
@@ -78,7 +77,7 @@ var poseList = [];  // running list of poses to append to
 async function findPoses(video, aves, maxlen) {
   var postureHistory = []
   var posturePeriod = []
-  while (1) {
+  while (gatherVideo) {
     const posenet = require('@tensorflow-models/posenet');
 
     async function estimatePoseOnImage(video) {
@@ -153,6 +152,8 @@ async function findPoses(video, aves, maxlen) {
     console.log(posturePeriod)
     await sleep(5000); // wait 5 seconds before logging next frame
   }
+
+  return postureHistory;
 }
 
 async function calibrate() {
@@ -258,7 +259,7 @@ export async function bindPage() {
   }
 
   const aves = await calibrate(video);
-  findPoses(video, aves, 10);
+  const postureHistory = await findPoses(video, aves, maxlen);
 }
 
 navigator.getUserMedia = navigator.getUserMedia ||
