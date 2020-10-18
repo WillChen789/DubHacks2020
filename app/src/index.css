@@ -35,15 +35,13 @@ h2,
 }
 
 
-.NextLeft {
+.col1 {
   display: inline;
-  margin: 20px;
 }
 
-.NextRight {
+.col2 {
   display: inline;
-  margin: 20px;
-  background-color: #3f3f3f;
+  background-color: #8f8f8f;
 }
 
 .Bottom {
