@@ -54,11 +54,16 @@ export class Monitors extends React.Component {
   }
   render() {
     return (
-      <div className="monitorCombination">
-        <Monitor type={this.state.posture} name="Posture"/>
-        <Monitor type={this.state.posture} name="Eyes"/>
-        <Monitor type={this.state.posture} name="Hydration"/>
-        <Monitor type={this.state.posture} name="Break"/>
+      <div>
+          <div className="title">
+            <h1>Monitors</h1>
+          </div>
+          <div className="monitorCombination">
+            <Monitor type={this.state.posture} name="Posture"/>
+            <Monitor type={this.state.posture} name="Eyes"/>
+            <Monitor type={this.state.posture} name="Hydration"/>
+            <Monitor type={this.state.posture} name="Break"/>
+          </div>
       </div>
     );
   }
