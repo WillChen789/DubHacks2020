@@ -56,7 +56,7 @@ export class Monitors extends React.Component {
     return (
       <div>
           <div className="titleM">
-            <h1>Monitors</h1>
+            <h1>MONITORS</h1>
           </div>
           <div className="monitorCombination">
             <Monitor type={this.state.posture} name="Posture"/>
