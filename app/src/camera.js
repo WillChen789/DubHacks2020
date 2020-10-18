@@ -178,7 +178,7 @@ async function calibrate(video) {
       'x': 0, 'y': 0
     }
   }
-
+  alert("Calibration Started: Please maintain good posture for 10 seconds");
   while (timer > 0) {
     const posenet = require('@tensorflow-models/posenet');
 
@@ -242,6 +242,7 @@ async function calibrate(video) {
   aves['leftShoulder']['y'] /= 10;
 
   console.log(aves);
+  alert("Calibration Complete!");
   return aves;
 }
 
