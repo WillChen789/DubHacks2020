@@ -6,19 +6,26 @@ function Buttons(props) {
     return (
         <div className="buttonW">
             <button
+            id="calButton"
+            value="calibrateButton"
             className="block"
-            title = "CALIBRATE POSTURE"
-            //onClick={bindPage}
-            />
+            title = "CALIBRATE POSTURE">
+            CALIBRATE POSTURE
+            </button>
+
             <button
+            id="doneButton"
+            value="clockOutButton"
             className="block"
-            title = "I am done working!!!"
-            />
+            onClick={console.log("You pressed")}
+            title = "I am done working!!!">
+            I am done working!!!
+            </button>
         </div>
     )
 }
 
-export class Bottom_buttons extends React.Component {
+export class BottomButtons extends React.Component {
     render() {
         return(
             <Buttons/>
@@ -27,4 +34,4 @@ export class Bottom_buttons extends React.Component {
 
 }
 
-export default Bottom_buttons;
+export default BottomButtons;
