@@ -65,6 +65,8 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+var poseList = [];  // running list of poses to append to
+
 /**
  * Feeds an image to posenet to estimate poses - this is where the magic
  * happens. This function loops with a requestAnimationFrame method.
@@ -86,8 +88,11 @@ async function findPoses(video) {
     const imageElement = document.getElementById('cat');
 
     const pose = estimatePoseOnImage(video);
-    await sleep(5000);
-    console.log(pose);
+    poseList.push(pose);
+    //console.log(pose);
+    console.log(poseList); // output the list of poses for debugging
+
+    await sleep(5000); // wait 5 seconds before logging next frame
   }
 }
 
