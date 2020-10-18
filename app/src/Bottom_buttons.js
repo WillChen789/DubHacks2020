@@ -4,7 +4,7 @@ import './Bottom_buttons.css';
 
 function Buttons(props) {
     return (
-        <div className="buttonW">
+        <div>
             <button
             id="calButton"
             value="calibrateButton"
