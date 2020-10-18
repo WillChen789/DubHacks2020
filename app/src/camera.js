@@ -26,6 +26,7 @@ const videoHeight = 500;
 var gatherVideo = true;
 var maxlen = 10;
 var sensitivity = 0;
+var doNotDistrub = false;
 
 /**
  * Loads a the camera to be used in the demo
@@ -140,7 +141,9 @@ async function findPoses(video, aves, maxlen) {
       postureHistory = postureHistory.concat(posturePeriod)
       
       if (posturePeriod.length >= maxlen) {
-        alert("Bad boy");
+        if (!doNotDistrub) {
+          alert("Bad boy");
+        }
         console.log("Bad boy")
       } else {
         console.log("Good posture")
@@ -268,6 +271,11 @@ export async function bindPage() {
 
 export async function stopScript() {
   gatherVideo = false
+  alert("Work is over!")
+}
+
+export async function toggleDistrub() {
+  doNotDistrub = !doNotDistrub
 }
 
 navigator.getUserMedia = navigator.getUserMedia ||
