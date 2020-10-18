@@ -60,10 +60,10 @@ export class Monitors extends React.Component {
   render() {
     return (
       <div className="monitorCombination">
-        <Monitor type="Good" name="Posture"/>
-        <Monitor type="Bad" name="Eyes"/>
-        <Monitor type="Good" name="Hydration"/>
-        <Monitor type="Bad" name="Break"/>
+        <Monitor type={this.state.posture} name="Posture"/>
+        <Monitor type={this.state.posture} name="Eyes"/>
+        <Monitor type={this.state.posture} name="Hydration"/>
+        <Monitor type={this.state.posture} name="Break"/>
       </div>
     );
   }

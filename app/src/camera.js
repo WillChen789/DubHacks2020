@@ -153,6 +153,7 @@ async function findPoses(video, aves, maxlen) {
           alert("Bad boy");
         }
         console.log("Bad boy")
+        posture = false;
       } else {
         console.log("Good posture");
         posture = true;
