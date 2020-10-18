@@ -16,6 +16,7 @@
  */
 import * as shoulderUtils from '../../app/src/checkShoulders.js';
 import * as Posture from '../../app/src/postureCheck.js';
+import * as d3 from "d3";
 
 const videoWidth = 600;
 const videoHeight = 500;
@@ -156,7 +157,7 @@ async function findPoses(video, aves, maxlen) {
 
     console.log(postureHistory)
     console.log(posturePeriod)
-    await sleep(5000); // wait 5 seconds before logging next frame
+    await sleep(1000); // wait 5 seconds before logging next frame
   }
 
   return postureHistory;
@@ -230,9 +231,9 @@ async function calibrate(video) {
     aves['leftShoulder']['x'] += x_Lshoulder;
     aves['leftShoulder']['y'] += y_Lshoulder;
 
-    timer -= 1000
+    timer -= 2000
     console.log(timer / 1000 + " seconds remaining")
-    await sleep(1000); // wait 1 second before logging next frame
+    await sleep(500); // wait 1 second before logging next frame
   }
 
 
@@ -253,6 +254,78 @@ async function calibrate(video) {
   return aves;
 }
 
+function graphData(data) {
+  var margin = {
+    top: 20,
+    right: 20,
+    bottom: 30,
+    left: 40
+  }
+  let width = 700 - margin.left - margin.right;
+  let height = 500 - margin.top - margin.bottom;
+
+  data.forEach(function (d) {
+    let formatSecond = d3.timeFormat(":%S")
+    d.date = formatSecond(d.date)
+    d.goodPosture = d.goodPosture ? 1 : -1
+  })
+
+  var x = d3.scaleTime().range([0, width])
+  var y = d3.scaleLinear().range([height, 0])
+
+  x.domain(d3.extent(data, function (d) {
+    return d.date;
+  }));
+
+  y.domain([-1, 1]);
+
+  var valueline = d3.line()
+    .x(function(d) {
+      return x(d.date);
+    })
+    .y(function(d) {
+      return y(d.wage)
+    });
+
+  var svg = d3.select("#scatter").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  svg.append("path")
+    .data([data])
+    .attr("class", "line")
+    .attr("d", valueline)
+    //styling:
+    .attr("stroke", "#32CD32")
+    .attr("stroke-width", 2)
+    .attr("fill", "#FFFFFF");
+
+  var path = svg.selectAll("dot")
+    .data(data)
+    .enter().append("circle")
+    .attr("r", 5)
+    .attr("cx", function (d) {
+          return x(d.date);
+    })
+    .attr("cy", function (d) {
+        return y(d.wage);
+    })
+    .attr("stroke", "#32CD32")
+    .attr("stroke-width", 1.5)
+    .attr("fill", "#FFFFFF")
+
+  
+  svg.append("g")
+     .attr("transform", "translate(0," + height + ")")
+     .call(d3.axisBottom(x));
+svg.append("g")
+     .call(d3.axisLeft(y).tickFormat(function (d) {
+          return d3.format(".2f")(d)
+     }));
+}
+
 /**
  * Kicks off the demo by loading the posenet model, finding and loading
  * available camera devices, and setting off the findPoses function.
@@ -271,6 +344,7 @@ export async function bindPage() {
   }
   const aves = await calibrate(video);
   const postureHistory = await findPoses(video, aves, maxlen);
+  graphData(postureHistory);
 }
 
 export async function stopScript() {

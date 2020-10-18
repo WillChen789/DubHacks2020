@@ -55,6 +55,10 @@ class App extends React.Component {
           <div>
             <BottomButtons className="Bottom"/>
           </div>
+          <script src="https://d3js.org/d3.v6.js"></script>
+          <script src="https://d3js.org/d3-time.v2.min.js"></script>
+          <script src="https://d3js.org/d3-time-format.v3.min.js"></script>
+          <div id="scatter"></div>
       </div>
     );
   }
