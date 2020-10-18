@@ -16,7 +16,6 @@
  */
 import * as shoulderUtils from '../../app/src/checkShoulders.js';
 import * as Posture from '../../app/src/postureCheck.js';
-import * as d3 from "d3";
 
 const videoWidth = 600;
 const videoHeight = 500;
@@ -26,7 +25,6 @@ const videoHeight = 500;
  */
 var gatherVideo = true;
 var maxlen = 10;
-var sensitivity = 0;
 var doNotDistrub = false;
 
 /**
@@ -164,6 +162,7 @@ async function findPoses(video, aves, maxlen) {
 }
 
 async function calibrate(video) {
+  gatherVideo = true
   let timer = 10000;
   let aves = {
     'nose': {
@@ -254,117 +253,117 @@ async function calibrate(video) {
   return aves;
 }
 
-function graphData(data) {
-  var margin = {
-    top: 20,
-    right: 20,
-    bottom: 30,
-    left: 40
-  }
-  let width = 700 - margin.left - margin.right;
-  let height = 500 - margin.top - margin.bottom;
+// function graphData(data) {
+//   var margin = {
+//     top: 20,
+//     right: 20,
+//     bottom: 30,
+//     left: 40
+//   }
+//   let width = 700 - margin.left - margin.right;
+//   let height = 500 - margin.top - margin.bottom;
 
-  let pie_data = {
-    good: 0,
-    bad: 0
-  }
+//   let pie_data = {
+//     good: 0,
+//     bad: 0
+//   }
 
-  data.forEach(function (d) {
-    let formatSecond = d3.timeFormat("%S")
-    d.date = formatSecond(d.date)
-    if (d.goodPosture) {
-      d.goodPosture = 1
-      pie_data["good"] += 1
-    } else {
-      d.goodPosture = -1
-      pie_data["bad"] += 1
-    }
-  })
+//   data.forEach(function (d) {
+//     let formatSecond = d3.timeFormat("%S")
+//     d.date = formatSecond(d.date)
+//     if (d.goodPosture) {
+//       d.goodPosture = 1
+//       pie_data["good"] += 1
+//     } else {
+//       d.goodPosture = -1
+//       pie_data["bad"] += 1
+//     }
+//   })
 
-  var x = d3.scaleTime().range([0, width])
-  var y = d3.scaleLinear().range([height, 0])
+//   var x = d3.scaleTime().range([0, width])
+//   var y = d3.scaleLinear().range([height, 0])
 
-  x.domain(d3.extent(data, function (d) {
-    return d.date;
-  }));
+//   x.domain(d3.extent(data, function (d) {
+//     return d.date;
+//   }));
 
-  y.domain([-1, 1]);
+//   y.domain([-1, 1]);
 
-  var valueline = d3.line()
-    .x(function(d) {
-      return x(d.date);
-    })
-    .y(function(d) {
-      return y(d.wage)
-    });
+//   var valueline = d3.line()
+//     .x(function(d) {
+//       return x(d.date);
+//     })
+//     .y(function(d) {
+//       return y(d.wage)
+//     });
 
-  var svg = d3.select("#scatter").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+//   var svg = d3.select("#scatter").append("svg")
+//     .attr("width", width + margin.left + margin.right)
+//     .attr("height", height + margin.top + margin.bottom)
+//     .append("g")
+//     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  svg.append("path")
-    .data([data])
-    .attr("class", "line")
-    .attr("d", valueline)
-    //styling:
-    .attr("stroke", "#32CD32")
-    .attr("stroke-width", 2)
-    .attr("fill", "#FFFFFF");
+//   svg.append("path")
+//     .data([data])
+//     .attr("class", "line")
+//     .attr("d", valueline)
+//     //styling:
+//     .attr("stroke", "#32CD32")
+//     .attr("stroke-width", 2)
+//     .attr("fill", "#FFFFFF");
 
-  var path = svg.selectAll("dot")
-    .data(data)
-    .enter().append("circle")
-    .attr("r", 5)
-    .attr("cx", function (d) {
-          return x(d.date);
-    })
-    .attr("cy", function (d) {
-        return y(d.goodPosture);
-    })
-    .attr("stroke", "#32CD32")
-    .attr("stroke-width", 1.5)
-    .attr("fill", "#FFFFFF")
+//   var path = svg.selectAll("dot")
+//     .data(data)
+//     .enter().append("circle")
+//     .attr("r", 5)
+//     .attr("cx", function (d) {
+//           return x(d.date);
+//     })
+//     .attr("cy", function (d) {
+//         return y(d.goodPosture);
+//     })
+//     .attr("stroke", "#32CD32")
+//     .attr("stroke-width", 1.5)
+//     .attr("fill", "#FFFFFF")
 
   
-  svg.append("g")
-     .attr("transform", "translate(0," + height + ")")
-     .call(d3.axisBottom(x));
-  svg.append("g")
-      .call(d3.axisLeft(y).tickFormat(function (d) {
-            return d3.format(".2f")(d)
-      }));
+//   svg.append("g")
+//      .attr("transform", "translate(0," + height + ")")
+//      .call(d3.axisBottom(x));
+//   svg.append("g")
+//       .call(d3.axisLeft(y).tickFormat(function (d) {
+//             return d3.format(".2f")(d)
+//       }));
 
 
-  var pie_svg = d3.select("#pie"),
-      radius = Math.min(width, height) / 2,
-      g = pie_svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+//   var pie_svg = d3.select("#pie"),
+//       radius = Math.min(width, height) / 2,
+//       g = pie_svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-  var color = d3.scaleOrdinal(['#4daf4a','#377eb8','#ff7f00','#984ea3','#e41a1c']);
+//   var color = d3.scaleOrdinal(['#4daf4a','#377eb8','#ff7f00','#984ea3','#e41a1c']);
 
-  // Generate the pie
-  var pie = d3.pie();
+//   // Generate the pie
+//   var pie = d3.pie();
 
-  // Generate the arcs
-  var arc = d3.arc()
-              .innerRadius(0)
-              .outerRadius(radius);
+//   // Generate the arcs
+//   var arc = d3.arc()
+//               .innerRadius(0)
+//               .outerRadius(radius);
 
-  //Generate groups
-  var arcs = g.selectAll("arc")
-              .data(pie(pie_data))
-              .enter()
-              .append("g")
-              .attr("class", "arc")
+//   //Generate groups
+//   var arcs = g.selectAll("arc")
+//               .data(pie(pie_data))
+//               .enter()
+//               .append("g")
+//               .attr("class", "arc")
 
-  //Draw arc paths
-  arcs.append("path")
-      .attr("fill", function(d, i) {
-          return color(i);
-      })
-      .attr("d", arc);
-}
+//   //Draw arc paths
+//   arcs.append("path")
+//       .attr("fill", function(d, i) {
+//           return color(i);
+//       })
+//       .attr("d", arc);
+// }
 
 /**
  * Kicks off the demo by loading the posenet model, finding and loading
@@ -384,7 +383,7 @@ export async function bindPage() {
   }
   const aves = await calibrate(video);
   const postureHistory = await findPoses(video, aves, maxlen);
-  graphData(postureHistory);
+  // graphData(postureHistory);
 }
 
 export async function stopScript() {
