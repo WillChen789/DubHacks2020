@@ -20,7 +20,7 @@ function Monitor(props) {
   }
   monitor.push(
     <div className="monitorName">
-      <h2>{props.name}</h2>
+      <h3>{props.name}</h3>
     </div>
   )
   return (

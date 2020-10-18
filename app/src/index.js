@@ -25,7 +25,7 @@ class App extends React.Component {
         <div id="info" style={{display: 'none'}}>
         </div>
         <div className="floatL">
-          <div className="NextLeft">
+          <div className="col1">
             <h1>
               Posture?
             </h1>
@@ -42,7 +42,7 @@ class App extends React.Component {
               <Settings settingTitle="Eye Sensitivity"/>
             </div>
           </div>
-          <div className="NextRight">
+          <div className="col2">
             <Monitors/>
           </div>
         </div>
