@@ -20,6 +20,10 @@ import * as Posture from '../../app/src/postureCheck.js';
 
 import { drawBoundingBox, drawKeypoints, drawSkeleton, isMobile, toggleLoadingUI, tryResNetButtonName, tryResNetButtonText, updateTryResNetButtonDatGuiCss } from './demo_util';
 
+
+const videoWidth = 600;
+const videoHeight = 500;
+
 /**
  * State of the session
  */
