@@ -119,6 +119,95 @@ async function findPoses(video) {
   }
 }
 
+async function calibrate() {
+  let timer  = 10000;
+  let aves = {
+    'nose': {
+      'x': 0, 'y': 0
+    },
+    'leftEye': {
+      'x': 0, 'y': 0
+    },
+    'rightEye': {
+      'x': 0, 'y': 0
+    },
+    'leftShoulder': {
+      'x': 0, 'y': 0
+    },
+    'rightShoulder': {
+      'x': 0, 'y': 0
+    }
+  }
+
+  while (timer > 0) {
+    const posenet = require('@tensorflow-models/posenet');
+
+    async function estimatePoseOnImage(video) {
+      // load the posenet model from a checkpoint
+      const net = await posenet.load();
+
+      const pose = await net.estimateSinglePose(video, {
+        flipHorizontal: false
+      });
+      return pose;
+    }
+
+    const imageElement = document.getElementById('cat');
+
+    const pose = await estimatePoseOnImage(video);
+    const arr = pose["keypoints"];
+
+    var x_nose = arr[0]["position"]["x"];
+    var y_nose = arr[0]["position"]["y"];
+
+    var x_Reye = arr[2]["position"]["x"];
+    var y_Reye = arr[2]["position"]["y"];
+
+    var x_Leye = arr[1]["position"]["x"];
+    var y_Leye = arr[1]["position"]["y"];
+   
+    var x_Rshoulder = arr[6]["position"]["x"];
+    var y_Rshoulder = arr[6]["position"]["y"];
+
+    var x_Lshoulder = arr[5]["position"]["x"];
+    var y_Lshoulder = arr[5]["position"]["y"];
+
+    aves['nose']['x'] += x_nose;
+    aves['nose']['y'] += y_nose;
+    aves['rightEye']['x'] += x_Reye;
+    aves['rightEye']['y'] += y_Reye;
+    aves['leftEye']['x'] += x_Leye;
+    aves['leftEye']['y'] += y_Leye;
+    aves['rightShoulder']['x'] += x_Rshoulder;
+    aves['rightShoulder']['y'] += y_Rshoulder;
+    aves['leftShoulder']['x'] += x_Lshoulder;
+    aves['leftShoulder']['y'] += y_Lshoulder;
+
+    poseList.push(pose);
+    console.log(pose);
+    //console.log(poseList); // output the list of poses for debugging
+    console.log(x_Lshoulder);
+    console.log(y_Lshoulder);
+
+    timer -= 1000
+    await sleep(1000); // wait 1 second before logging next frame
+  }
+
+  
+  aves['nose']['x'] /= 10;
+  aves['nose']['y'] /= 10;
+  aves['rightEye']['x'] /= 10;
+  aves['rightEye']['y'] /= 10;
+  aves['leftEye']['x'] /= 10;
+  aves['leftEye']['y'] /= 10;
+  aves['rightShoulder']['x'] /= 10;
+  aves['rightShoulder']['y'] /= 10;
+  aves['leftShoulder']['x'] /= 10;
+  aves['leftShoulder']['y'] /= 10;
+
+  console.log(aves);
+}
+
 /**
  * Kicks off the demo by loading the posenet model, finding and loading
  * available camera devices, and setting off the findPoses function.
@@ -136,7 +225,7 @@ export async function bindPage() {
     throw e;
   }
 
-  findPoses(video);
+  calibrate(video);
 }
 
 navigator.getUserMedia = navigator.getUserMedia ||
