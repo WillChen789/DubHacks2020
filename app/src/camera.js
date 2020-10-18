@@ -266,4 +266,4 @@ export async function bindPage() {
 navigator.getUserMedia = navigator.getUserMedia ||
   navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 // kick off the demo
-bindPage();
+// bindPage();
