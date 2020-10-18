@@ -174,6 +174,7 @@ async function findPoses(video, aves, maxlen) {
 }
 
 async function calibrate(video) {
+  gatherVideo = true;
   let timer = 10000;
   let aves = {
     'nose': {
@@ -286,6 +287,8 @@ export async function bindPage() {
 
 export async function stopScript() {
   gatherVideo = false
+  let g = document.getElementById('graphs')
+  g.style.display= "inline";
   alert("Work is over!")
 }
 
