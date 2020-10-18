@@ -130,17 +130,15 @@ async function findPoses(video, aves, maxlen) {
     //console.log(x_Lshoulder);
     //console.log(y_Lshoulder);
 
-    const sideTilt = Posture.sideFaceTilt(x_Leye, y_Leye, x_Reye, y_Reye, 
+    var sideTilt = Posture.sideFaceTilt(x_Leye, y_Leye, x_Reye, y_Reye, 
       aves['leftEye']['x'], aves['leftEye']['y'], 
       aves['rightEye']['x'], aves['rightEye']['y'], 50
     );
-    console.log(sideTilt);
 
-    const fbFaceTilt = Posture.fbFaceTilt(y_nose, y_Leye, y_Reye, 
+    var fbFaceTilt = Posture.fbFaceTilt(y_nose, y_Leye, y_Reye, 
       aves['nose']['y'], aves['leftEye']['y'], aves['rightEye']['y'], 12
     );
-    console.log(fbFaceTilt);
-    console.log(fTilt && shoulders);
+    console.log(fbFaceTilt && sideTilt && shoulders);
     
     var thisPose = {
       "date": new Date().getTime(), "goodPosture": shoulders
