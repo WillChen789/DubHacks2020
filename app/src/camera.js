@@ -263,6 +263,10 @@ export async function bindPage() {
   const postureHistory = await findPoses(video, aves, maxlen);
 }
 
+export async function stopScript() {
+  gatherVideo = false
+}
+
 navigator.getUserMedia = navigator.getUserMedia ||
   navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 // kick off the demo

@@ -1,5 +1,5 @@
 import React from 'react';
-import bindPage from './camera.js'
+import { bindPage, stopScript } from './camera.js'
 import './Bottom_buttons.css';
 
 function Buttons(props) {
@@ -9,6 +9,7 @@ function Buttons(props) {
             id="calButton"
             value="calibrateButton"
             className="block"
+            onClick={() => bindPage()}
             title = "CALIBRATE POSTURE">
             CALIBRATE POSTURE
             </button>
@@ -17,7 +18,7 @@ function Buttons(props) {
             id="doneButton"
             value="clockOutButton"
             className="block"
-            onClick={console.log("You pressed")}
+            onClick={() => stopScript()}
             title = "I am done working!!!">
             I am done working!!!
             </button>
