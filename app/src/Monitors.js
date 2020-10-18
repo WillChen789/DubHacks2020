@@ -54,7 +54,7 @@ export class Monitors extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div id='Ms'>
           <div className="titleM">
             <h1>MONITORS</h1>
           </div>

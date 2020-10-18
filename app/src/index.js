@@ -21,15 +21,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-          <div>
-              <div id="main" style={{display: 'none'}}>
-                  <video id="video" playsInline style={{display: 'inline'}}>
-                  </video>
-                  <canvas id="output" />
-              </div>
-              <div id="info" style={{display: 'none'}}>
-              </div>
-          </div>
+          
           <div className="title">
               <h1>
                 ImPosture
@@ -38,8 +30,18 @@ class App extends React.Component {
                 The home workplace health manager
               </h2>
           </div>
+          
           <div className="containery">
               <div className="col1">
+              <div>
+              <div id="main" style={{display: 'none'}}>
+                  <video id="video" playsInline style={{display: 'inline'}}>
+                  </video>
+                  <canvas id="output" />
+              </div>
+              <div id="info" style={{display: 'none'}}>
+              </div>
+          </div>
                   <div className="Forms">
                       <div className="Form">
                         <Settings settingTitle="Notifications"/>

@@ -32,10 +32,17 @@ code {
 
 .title h2 {
   margin: 0px;
+  padding-bottom: 30px;
   font-size: 24px;
   font-weight: 400;
   font-style: italic;
   text-align: center;
+  border-bottom: 2px solid white;
+
+}
+
+.title {
+  margin-bottom: 30px;
 }
 
 .App h2 {
@@ -43,13 +50,15 @@ code {
 }
 
 
+
 .Forms{ 
   display: flex;
   flex-direction: row;
+  margin-right: 100px;
 }
 .Form {
   display: inline-block;
-  margin: 20px;
+  margin: 25px;
 }
 
 
@@ -73,7 +82,7 @@ code {
 
 .containery {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-content: flex-start;
 }
 
@@ -88,3 +97,26 @@ code {
 }
 
 .clear { clear:both;}
+
+#graphs {
+  display: block;
+  margin: 60px;
+  align-self: center;
+  border-radius: 15px;
+}
+
+#main {
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  margin-bottom: 40px;
+  border-radius: 15px;
+}
+
+#video {
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  border-radius: 15px;
+  align-self: center;
+}
