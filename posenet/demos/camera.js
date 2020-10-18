@@ -15,7 +15,7 @@
  * =============================================================================
  */
 import Stats from 'stats.js';
-import * as Posture from '.../app/src/postureCheck.js';
+import * as Posture from '../../app/src/postureCheck.js';
 
 import { drawBoundingBox, drawKeypoints, drawSkeleton, isMobile, toggleLoadingUI, tryResNetButtonName, tryResNetButtonText, updateTryResNetButtonDatGuiCss } from './demo_util';
 
