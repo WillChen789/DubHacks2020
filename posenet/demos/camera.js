@@ -137,7 +137,7 @@ async function findPoses(video, aves, maxlen) {
     console.log(fbFaceTilt && sideTilt && shoulders);
     
     var thisPose = {
-      "date": new Date().getTime(), "goodPosture": shoulders
+      "date": new Date().getTime(), "goodPosture": shoulders && fbFaceTilt && sideTilt
     }
 
     posturePeriod.push(thisPose)
