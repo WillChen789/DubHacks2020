@@ -1,5 +1,5 @@
 import React from 'react';
-//import { bindPage } from '../../posenet/demos/camera.js'
+import bindPage from './camera.js'
 import './Bottom_buttons.css';
 
 function Buttons(props) {
@@ -17,6 +17,7 @@ function Buttons(props) {
             id="doneButton"
             value="clockOutButton"
             className="block"
+            onClick={console.log("You pressed")}
             title = "I am done working!!!">
             I am done working!!!
             </button>
@@ -24,7 +25,7 @@ function Buttons(props) {
     )
 }
 
-export class Bottom_buttons extends React.Component {
+export class BottomButtons extends React.Component {
     render() {
         return(
             <Buttons/>
@@ -33,4 +34,4 @@ export class Bottom_buttons extends React.Component {
 
 }
 
-export default Bottom_buttons;
+export default BottomButtons;

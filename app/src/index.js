@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Settings from './Settings.js'
 import Monitors from './Monitors.js'
-import Bottom_buttons from './Bottom_buttons'
+import BottomButtons from './Bottom_buttons'
 import './index.css';
 
 
@@ -47,7 +47,7 @@ class App extends React.Component {
           </div>
         </div>
         <div className="clear">
-          <Bottom_buttons className="Bottom"/>
+          <BottomButtons className="Bottom"/>
         </div>
       </div>
     );
