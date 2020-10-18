@@ -17,6 +17,7 @@ function Buttons(props) {
             id="doneButton"
             value="clockOutButton"
             className="block"
+            onClick={console.log("You pressed")}
             title = "I am done working!!!">
             I am done working!!!
             </button>
