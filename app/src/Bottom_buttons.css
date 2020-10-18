@@ -1,12 +1,31 @@
 .block {
   display: inline;
   width: 40%;
-  border: solid;
-  background-color: #53F4FF;
+  border: none;
+  border-radius: 45px;
+  font-weight: 700;
   padding: 14px 28px;
   font-size: 40px;
   cursor: pointer;
   text-align: center;
   vertical-align: middle;
-  margin: 60px;
+  margin: 0px;
+}
+
+.buttonW {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 0px;
+  margin-top: 60px;
+}
+
+#calButton {
+  background-color: #98DB53;
+  margin: 0px;
+}
+
+#doneButton {
+  background-color: #FA433E;
+  margin: 0px;
 }

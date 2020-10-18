@@ -8,7 +8,7 @@ function Buttons(props) {
             <button
             id="calButton"
             value="calibrateButton"
-            className="block"
+            className="block" 
             onClick={() => bindPage()}
             title = "CALIBRATE POSTURE">
             CALIBRATE POSTURE
@@ -19,8 +19,8 @@ function Buttons(props) {
             value="clockOutButton"
             className="block"
             onClick={() => stopScript()}
-            title = "I am done working!!!">
-            I am done working!!!
+            title = "I'M DONE WORKING">
+            I'M DONE WORKING
             </button>
         </div>
     )

@@ -34,7 +34,7 @@ class App extends React.Component {
                 The home workplace health manager
               </h2>
           </div>
-          <div className="container">
+          <div className="containery">
               <div className="col1">
                   <div className="Forms">
                       <div className="Form">
