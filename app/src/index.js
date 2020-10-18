@@ -18,8 +18,8 @@ class App extends React.Component {
     return (
       <div className="App">
           <div>
-              <div id="main" style={{display: 'none'}}>
-                  <video id="video" playsInline style={{display: 'none'}}>
+              <div id="main" style={{display: 'inline'}}>
+                  <video id="video" playsInline style={{display: 'inline'}}>
                   </video>
                   <canvas id="output" />
               </div>
