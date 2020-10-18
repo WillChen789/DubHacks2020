@@ -25,7 +25,7 @@ function Buttons(props) {
     )
 }
 
-export class Bottom_buttons extends React.Component {
+export class BottomButtons extends React.Component {
     render() {
         return(
             <Buttons/>
@@ -34,4 +34,4 @@ export class Bottom_buttons extends React.Component {
 
 }
 
-export default Bottom_buttons;
+export default BottomButtons;
