@@ -11,3 +11,13 @@
 .monitorName {
   display: inline-block;
 }
+
+.resize {
+    width: 40px;
+    height: auto;
+}
+
+.resize {
+    width: 30px;
+    height: auto;
+}

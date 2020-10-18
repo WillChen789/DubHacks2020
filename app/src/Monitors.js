@@ -1,18 +1,20 @@
 import React from 'react';
 import './Monitors.css';
+import gcircle from './assets/green_circle.png';
+import rcircle from './assets/red_circle.png';
 
 function Monitor(props) {
   let monitor = []
   if (props.type == "Good") {
     monitor.push(
       <div className="monitorCircle">
-        <img src="./assets/green_circle.png" alt="green circle"/>
+        <img className="resize" src={gcircle} alt="green circle"/>
       </div>
     )
   } else {
     monitor.push(
       <div className="monitorCircle">
-        <img src="./assets/red_circle.png" alt="red circle"/>
+        <img className="resize" src={rcircle} alt="red circle"/>
       </div>
     )
   }
