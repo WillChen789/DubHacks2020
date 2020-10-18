@@ -1,21 +1,15 @@
 import React from 'react';
 import './Monitors.css';
-import gcircle from './assets/green_circle.JPG';
-import rcircle from './assets/red_circle.JPG';
 
 function Monitor(props) {
   let monitor = []
   if (props.type === "Good") {
     monitor.push(
-      <div className="monitorCircle">
-        <img className="resize" src={gcircle} alt="green circle"/>
-      </div>
+      <div className="green_dot"></div>
     )
   } else {
     monitor.push(
-      <div className="monitorCircle">
-        <img className="resize" src={rcircle} alt="red circle"/>
-      </div>
+      <div className="red_dot"></div>
     )
   }
   monitor.push(
@@ -24,7 +18,7 @@ function Monitor(props) {
     </div>
   )
   return (
-    <div>
+    <div className="container">
       {monitor}
     </div>
   );
@@ -33,11 +27,16 @@ function Monitor(props) {
 export class Monitors extends React.Component {
   render() {
     return (
-      <div className="monitorCombination">
-        <Monitor type="Good" name="Posture"/>
-        <Monitor type="Bad" name="Eyes"/>
-        <Monitor type="Good" name="Hydration"/>
-        <Monitor type="Bad" name="Break"/>
+      <div className="watson">
+          <div>
+            <h1>Monitors</h1>
+          </div>
+          <div>
+            <Monitor type="Good" name="Posture"/>
+            <Monitor type="Bad" name="Eyes"/>
+            <Monitor type="Good" name="Hydration"/>
+            <Monitor type="Bad" name="Break"/>
+          </div>
       </div>
     );
   }

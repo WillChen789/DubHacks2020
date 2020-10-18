@@ -17,6 +17,9 @@ code {
   min-height: 100vh;
   color: white;
   font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
 }
 
 h1,
@@ -26,7 +29,7 @@ h1,
 
 h2,
 .App {
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .Form {
@@ -36,18 +39,26 @@ h2,
 
 
 .col1 {
-  display: inline;
+  display: flex;
+  flex-direction: column;
 }
 
 .col2 {
-  display: inline;
+  display: flex;
+  width: 15%;
   background-color: #8f8f8f;
+  padding: 10px;
 }
 
 .Bottom {
   font-size: 40px;
 }
 
-.floatL { float:left; }
+.container {
+  display: flex;
+  justify-content: space-between;
+}
 
-.clear { clear:both;}
+.title {
+  
+}
