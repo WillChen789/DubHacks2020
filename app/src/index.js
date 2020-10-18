@@ -17,6 +17,13 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <div id="main" style={{display: 'none'}}>
+            <video id="video" playsInline style={{display: 'none'}}>
+            </video>
+            <canvas id="output" />
+        </div>
+        <div id="info" style={{display: 'none'}}>
+        </div>
         <div className="floatL">
           <div className="NextLeft">
             <h1>
