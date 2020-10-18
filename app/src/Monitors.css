@@ -1,0 +1,11 @@
+.monitorCombination {
+  float: right;
+}
+
+.monitorCircle {
+  display: inline-block;
+}
+
+.monitorName {
+  display: inline-block;
+}

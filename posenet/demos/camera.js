@@ -115,18 +115,25 @@ async function findPoses(video, aves, maxlen) {
     var y_Reye = arr[2]["position"]["y"];
      
 
+<<<<<<< HEAD
     var shoulders = shoulderUtils.checkShoulderDisplacement(
       x_Lshoulder, y_Lshoulder, x_Rshoulder, y_Rshoulder,
       aves['leftShoulder']['x'], aves['leftShoulder']['y'],
       aves['rightShoulder']['x'], aves['rightShoulder']['y'],
       200
     );
+=======
+>>>>>>> 12ea403a2a16d37f9d0ba98f89214bd0d3124ac7
     const fTilt = Posture.faceTilt(x_nose, y_nose, x_Leye, y_Leye, x_Reye, y_Reye, 
       aves['nose']['x'], aves['nose']['y'], 
       aves['leftEye']['x'], aves['leftEye']['y'], 
       aves['rightEye']['x'], aves['rightEye']['y'], 200
     );
+<<<<<<< HEAD
     console.log(fTilt && shoulders);
+=======
+    console.log(fTilt);
+>>>>>>> 12ea403a2a16d37f9d0ba98f89214bd0d3124ac7
     
     var thisPose = {
       "date": new Date().getTime(), "goodPosture": shoulders
