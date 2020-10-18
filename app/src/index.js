@@ -5,6 +5,8 @@ import Monitors from './Monitors.js'
 import BottomButtons from './Bottom_buttons'
 import './index.css';
 
+import { bindPage, stopScript, status } from './camera.js'
+
 
 class App extends React.Component {
   constructor(props) {
@@ -51,10 +53,10 @@ class App extends React.Component {
               <div className="col2">
                 <Monitors/>
               </div>
-          </div>
-          <div>
-            <BottomButtons className="Bottom"/>
-          </div>
+        </div>
+        <div className="clear">
+          <BottomButtons className="Bottom"/>
+        </div>
       </div>
     );
   }

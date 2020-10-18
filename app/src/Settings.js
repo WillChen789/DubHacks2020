@@ -1,4 +1,5 @@
 import React from 'react';
+import { setRadio } from './camera.js'
 
 function Options(props) {
   return (
@@ -8,7 +9,7 @@ function Options(props) {
           <input
             type="radio"
             name="option"
-            onClick={console.log("You pressed:" + props.values[0])}
+            onClick={() => setRadio(props.title, props.values[0])}
           />
           {props.values[0]}
         </label>
@@ -19,7 +20,7 @@ function Options(props) {
           <input
             type="radio"
             name="option"
-            onClick={console.log("You pressed:" + props.values[1])}
+            onClick={() => setRadio(props.title, props.values[1])}
           />
           {props.values[1]}
         </label>
@@ -30,7 +31,7 @@ function Options(props) {
           <input
             type="radio"
             name="option"
-            onClick={console.log("You pressed:" + props.values[2])}
+            onClick={() => setRadio(props.title, props.values[2])}
           />
           {props.values[2]}
         </label>
@@ -41,7 +42,7 @@ function Options(props) {
           <input
             type="radio"
             name="option"
-            onClick={console.log("You pressed:" + props.values[3])}
+            onClick={() => setRadio(props.title, props.values[3])}
           />
           {props.values[3]}
         </label>
@@ -62,7 +63,8 @@ export class Settings extends React.Component {
         </div>
         <div className="radios">
           <Options
-            values = {["100%", "75%", "50%", "25%"]}
+            title = {this.props.settingTitle}
+            values={["100%", "75%", "50%", "25%"]}
           />
         </div>
       </div>

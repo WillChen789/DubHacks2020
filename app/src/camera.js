@@ -26,6 +26,15 @@ const videoHeight = 500;
 var gatherVideo = true;
 var maxlen = 10;
 var sensitivity = 0;
+var posture = false;
+
+export function status(){
+  return posture;
+}
+var radioCol1 = 0;
+var radioCol2 = 0;
+var radioCol3 = 0;
+var doNotDistrub = false;
 
 /**
  * Loads a the camera to be used in the demo
@@ -100,36 +109,36 @@ async function findPoses(video, aves, maxlen) {
     var y_Lshoulder = arr[5]["position"]["y"];
     var x_Rshoulder = arr[6]["position"]["x"];
     var y_Rshoulder = arr[6]["position"]["y"];
-    
+
     //var y_L = 
     //var x_R = 
     //var y_R = 
-    
+
     var y_nose = arr[0]["position"]["y"];
     var x_Leye = arr[1]["position"]["x"];
     var y_Leye = arr[1]["position"]["y"];
     var x_Reye = arr[2]["position"]["x"];
     var y_Reye = arr[2]["position"]["y"];
-    
+
     var shoulders = shoulderUtils.checkShoulderDisplacement(
       x_Lshoulder, y_Lshoulder, x_Rshoulder, y_Rshoulder,
       aves['leftShoulder']['x'], aves['leftShoulder']['y'],
       aves['rightShoulder']['x'], aves['rightShoulder']['y'],
       200
     );
-     
+
     console.log(pose);
 
-    var sideTilt = Posture.sideFaceTilt(x_Leye, y_Leye, x_Reye, y_Reye, 
-      aves['leftEye']['x'], aves['leftEye']['y'], 
+    var sideTilt = Posture.sideFaceTilt(x_Leye, y_Leye, x_Reye, y_Reye,
+      aves['leftEye']['x'], aves['leftEye']['y'],
       aves['rightEye']['x'], aves['rightEye']['y'], 50
     );
 
-    var fbFaceTilt = Posture.fbFaceTilt(y_nose, y_Leye, y_Reye, 
+    var fbFaceTilt = Posture.fbFaceTilt(y_nose, y_Leye, y_Reye,
       aves['nose']['y'], aves['leftEye']['y'], aves['rightEye']['y'], 12
     );
     console.log(fbFaceTilt && sideTilt && shoulders);
-    
+
     var thisPose = {
       "date": new Date().getTime(), "goodPosture": shoulders && fbFaceTilt && sideTilt
     }
@@ -138,17 +147,22 @@ async function findPoses(video, aves, maxlen) {
 
     if (thisPose.goodPosture || posturePeriod.length >= maxlen) {
       postureHistory = postureHistory.concat(posturePeriod)
-      
+
       if (posturePeriod.length >= maxlen) {
-        alert("Bad boy");
+        if (!doNotDistrub) {
+          alert("Bad boy");
+        }
         console.log("Bad boy")
+        posture = false;
       } else {
-        console.log("Good posture")
+        console.log("Good posture");
+        posture = true;
       }
 
       posturePeriod.length = 0
     } else {
-      console.log("Bad posture")
+      console.log("Bad posture");
+      posture = false;
     }
 
     console.log(postureHistory)
@@ -178,7 +192,10 @@ async function calibrate(video) {
       'x': 0, 'y': 0
     }
   }
-  alert("Calibration Started: Please maintain good posture for 10 seconds");
+
+  document.getElementById("main").style.display = 'inline';
+  
+  alert("Calibration Started: Press okay and maintain good posture for 10 seconds");
   while (timer > 0) {
     const posenet = require('@tensorflow-models/posenet');
 
@@ -243,6 +260,7 @@ async function calibrate(video) {
 
   console.log(aves);
   alert("Calibration Complete!");
+  document.getElementById("main").style.display = 'none';
   return aves;
 }
 
@@ -268,7 +286,27 @@ export async function bindPage() {
 
 export async function stopScript() {
   gatherVideo = false
+  alert("Work is over!")
 }
+
+export async function toggleDistrub() {
+  doNotDistrub = !doNotDistrub
+}
+
+export async function setRadio(title, value) {
+  if (title === "Notifications") {
+    radioCol1 = value;
+    console.log(title + " " + value);
+  } else if (title === "Posture Sensitivity") {
+    radioCol2 = value;
+    console.log(title + " " + value);
+  } else if (title === "Eye Sensitivity") {
+    radioCol3 = value;
+    console.log(title + " " + value);
+  }
+}
+
+
 
 navigator.getUserMedia = navigator.getUserMedia ||
   navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
