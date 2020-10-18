@@ -126,7 +126,12 @@ async function findPoses(video, aves) {
     console.log(x_Lshoulder);
     console.log(y_Lshoulder);
 
-    var fTilt = Posture.faceTilt(x_nose, y_nose, x_Leye, y_Leye, x_Reye, y_Reye);
+    const fTilt = Posture.faceTilt(x_nose, y_nose, x_Leye, y_Leye, x_Reye, y_Reye, 
+      aves['nose']['x'], aves['nose']['y'], 
+      aves['leftEye']['x'], aves['leftEye']['y'], 
+      aves['rightEye']['x'], aves['rightEye']['y'], 200
+    );
+    console.log(fTilt);
     
     await sleep(5000); // wait 5 seconds before logging next frame
   }

@@ -1,4 +1,4 @@
-export function faceTilt(x_nose, y_nose, x_Leye, y_Leye, x_Reye, y_Reye) {
+export function faceTilt(x_nose, y_nose, x_Leye, y_Leye, x_Reye, y_Reye, x_noseopt, y_noseopt, x_Leyeopt, y_Leyeopt, x_Reyeopt, y_Reyeopt, threshold) {
     if(y_Leye > (y_Reye + 10) || y_Reye > (y_Leye + 10)) {
         // Leaning sideways
         return false;
