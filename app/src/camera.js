@@ -157,7 +157,7 @@ async function findPoses(video, aves, maxlen) {
 
     console.log(postureHistory)
     console.log(posturePeriod)
-    await sleep(1000); // wait 5 seconds before logging next frame
+    await sleep(2000); // wait 5 seconds before logging next frame
   }
 
   return postureHistory;
@@ -231,9 +231,9 @@ async function calibrate(video) {
     aves['leftShoulder']['x'] += x_Lshoulder;
     aves['leftShoulder']['y'] += y_Lshoulder;
 
-    timer -= 2000
+    timer -= 1000
     console.log(timer / 1000 + " seconds remaining")
-    await sleep(500); // wait 1 second before logging next frame
+    await sleep(1000); // wait 1 second before logging next frame
   }
 
 
@@ -264,10 +264,21 @@ function graphData(data) {
   let width = 700 - margin.left - margin.right;
   let height = 500 - margin.top - margin.bottom;
 
+  let pie_data = {
+    good: 0,
+    bad: 0
+  }
+
   data.forEach(function (d) {
-    let formatSecond = d3.timeFormat(":%S")
+    let formatSecond = d3.timeFormat("%S")
     d.date = formatSecond(d.date)
-    d.goodPosture = d.goodPosture ? 1 : -1
+    if (d.goodPosture) {
+      d.goodPosture = 1
+      pie_data["good"] += 1
+    } else {
+      d.goodPosture = -1
+      pie_data["bad"] += 1
+    }
   })
 
   var x = d3.scaleTime().range([0, width])
@@ -310,7 +321,7 @@ function graphData(data) {
           return x(d.date);
     })
     .attr("cy", function (d) {
-        return y(d.wage);
+        return y(d.goodPosture);
     })
     .attr("stroke", "#32CD32")
     .attr("stroke-width", 1.5)
@@ -320,10 +331,39 @@ function graphData(data) {
   svg.append("g")
      .attr("transform", "translate(0," + height + ")")
      .call(d3.axisBottom(x));
-svg.append("g")
-     .call(d3.axisLeft(y).tickFormat(function (d) {
-          return d3.format(".2f")(d)
-     }));
+  svg.append("g")
+      .call(d3.axisLeft(y).tickFormat(function (d) {
+            return d3.format(".2f")(d)
+      }));
+
+
+  var pie_svg = d3.select("#pie"),
+      radius = Math.min(width, height) / 2,
+      g = pie_svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+  var color = d3.scaleOrdinal(['#4daf4a','#377eb8','#ff7f00','#984ea3','#e41a1c']);
+
+  // Generate the pie
+  var pie = d3.pie();
+
+  // Generate the arcs
+  var arc = d3.arc()
+              .innerRadius(0)
+              .outerRadius(radius);
+
+  //Generate groups
+  var arcs = g.selectAll("arc")
+              .data(pie(pie_data))
+              .enter()
+              .append("g")
+              .attr("class", "arc")
+
+  //Draw arc paths
+  arcs.append("path")
+      .attr("fill", function(d, i) {
+          return color(i);
+      })
+      .attr("d", arc);
 }
 
 /**
