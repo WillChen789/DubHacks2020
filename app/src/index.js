@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Settings from './Settings.js'
 import Monitors from './Monitors.js'
-import Bottom_buttons from './Bottom_buttons'
+import BottomButtons from './Bottom_buttons'
 import './index.css';
 
 
@@ -25,7 +25,7 @@ class App extends React.Component {
         <div id="info" style={{display: 'none'}}>
         </div>
         <div className="floatL">
-          <div className="Next">
+          <div className="NextLeft">
             <h1>
               Posture?
             </h1>
@@ -42,12 +42,12 @@ class App extends React.Component {
               <Settings settingTitle="Eye Sensitivity"/>
             </div>
           </div>
-          <div className="Next">
+          <div className="NextRight">
             <Monitors/>
           </div>
         </div>
         <div className="clear">
-          <Bottom_buttons className="Bottom"/>
+          <BottomButtons className="Bottom"/>
         </div>
       </div>
     );

@@ -140,7 +140,7 @@ async function findPoses(video, aves, maxlen) {
       postureHistory = postureHistory.concat(posturePeriod)
       
       if (posturePeriod.length >= maxlen) {
-        // TODO: Trigger alert
+        alert("Bad boy");
         console.log("Bad boy")
       } else {
         console.log("Good posture")

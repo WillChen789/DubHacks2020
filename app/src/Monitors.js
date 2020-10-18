@@ -5,7 +5,7 @@ import rcircle from './assets/red_circle.JPG';
 
 function Monitor(props) {
   let monitor = []
-  if (props.type == "Good") {
+  if (props.type === "Good") {
     monitor.push(
       <div className="monitorCircle">
         <img className="resize" src={gcircle} alt="green circle"/>
