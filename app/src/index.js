@@ -7,9 +7,6 @@ import './index.css';
 import pie from './assets/pie.png'
 import line from './assets/line.png'
 
-import { bindPage, stopScript, status } from './camera.js'
-
-
 class App extends React.Component {
   constructor(props) {
       super(props);
