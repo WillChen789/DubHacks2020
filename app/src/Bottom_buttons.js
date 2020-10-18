@@ -6,14 +6,18 @@ function Buttons(props) {
     return (
         <div className="buttonW">
             <button
+            id="calButton"
+            value="calibrateButton"
             className="block"
-            title = "CALIBRATE POSTURE"
-            //onClick={bindPage}
-            />
+            title = "CALIBRATE POSTURE">
+            </button>
+
             <button
+            id="doneButton"
+            value="clockOutButton"
             className="block"
-            title = "I am done working!!!"
-            />
+            title = "I am done working!!!">
+            </button>
         </div>
     )
 }
