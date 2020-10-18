@@ -8,8 +8,6 @@ function Options(props) {
           <input
             type="radio"
             name="option"
-            value="option1"
-            className="form-element-input"
             onClick={console.log("You pressed:" + props.values[0])}
           />
           {props.values[0]}
@@ -21,8 +19,6 @@ function Options(props) {
           <input
             type="radio"
             name="option"
-            value="option2"
-            className="form-element-input"
             onClick={console.log("You pressed:" + props.values[1])}
           />
           {props.values[1]}
@@ -34,8 +30,6 @@ function Options(props) {
           <input
             type="radio"
             name="option"
-            value="option3"
-            className="form-element-input"
             onClick={console.log("You pressed:" + props.values[2])}
           />
           {props.values[2]}
@@ -47,8 +41,6 @@ function Options(props) {
           <input
             type="radio"
             name="option"
-            value="option4"
-            className="form-element-input"
             onClick={console.log("You pressed:" + props.values[3])}
           />
           {props.values[3]}

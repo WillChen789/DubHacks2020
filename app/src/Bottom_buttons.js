@@ -4,9 +4,11 @@ function Buttons(props) {
     return (
         <div>
             <button
+            className="block"
             title = "CALIBRATE POSTURE"
             />
             <button
+            className="block"
             title = "I am done working!!!"
             />
         </div>
@@ -16,8 +18,7 @@ function Buttons(props) {
 export class Bottom_buttons extends React.Component {
     render() {
         return(
-            <Buttons
-            />
+            <Buttons/>
         );
     }
 
