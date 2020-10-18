@@ -11,3 +11,13 @@ export function checkShoulderDisplacement(x_L, y_L, x_R, y_R,
 
     return deviation < threshold;
 }
+
+// checkSlouching takes in the x coordinates of the Left and Right
+// shoulders as input, and returns True if they are closer together
+// when compared with the calibrated shoulder points.
+// Returns False otherwise.
+export function checkSlouching(x_L, x_R, x_L_opt, x_R_opt, threshold) {
+    const diff = Math.abs(x_R - x_L);
+    const optDiff = Math.abs(x_R_opt - x_L_opt);
+    return diff >= optDiff - threshold;
+}

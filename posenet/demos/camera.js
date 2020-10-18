@@ -20,9 +20,12 @@ import * as Posture from '../../app/src/postureCheck.js';
 
 import { drawBoundingBox, drawKeypoints, drawSkeleton, isMobile, toggleLoadingUI, tryResNetButtonName, tryResNetButtonText, updateTryResNetButtonDatGuiCss } from './demo_util';
 
-const videoWidth = 600;
-const videoHeight = 500;
-const stats = new Stats();
+/**
+ * State of the session
+ */
+var gatherVideo = true;
+var maxlen = 10;
+var sensitivity = 0;
 
 /**
  * Loads a the camera to be used in the demo
@@ -67,16 +70,14 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-var poseList = [];  // running list of poses to append to
-
-
-
 /**
  * Feeds an image to posenet to estimate poses - this is where the magic
  * happens. This function loops with a requestAnimationFrame method.
  */
-async function findPoses(video, aves) {
-  while (1) {
+async function findPoses(video, aves, maxlen) {
+  var postureHistory = []
+  var posturePeriod = []
+  while (gatherVideo) {
     const posenet = require('@tensorflow-models/posenet');
 
     async function estimatePoseOnImage(video) {
@@ -89,8 +90,6 @@ async function findPoses(video, aves) {
       return pose;
     }
 
-    const imageElement = document.getElementById('cat');
-
     const pose = await estimatePoseOnImage(video);
     const arr = pose["keypoints"];
     //const score = pose[]
@@ -102,13 +101,7 @@ async function findPoses(video, aves) {
     var y_Lshoulder = arr[5]["position"]["y"];
     var x_Rshoulder = arr[6]["position"]["x"];
     var y_Rshoulder = arr[6]["position"]["y"];
-    const goodPosture = shoulderUtils.checkShoulderDisplacement(
-      x_Lshoulder, y_Lshoulder, x_Rshoulder, y_Rshoulder,
-      aves['leftShoulder']['x'], aves['leftShoulder']['y'],
-      aves['rightShoulder']['x'], aves['rightShoulder']['y'],
-      200
-    );
-    console.log(goodPosture);
+    
     //var y_L = 
     //var x_R = 
     //var y_R = 
@@ -119,6 +112,13 @@ async function findPoses(video, aves) {
     var y_Leye = arr[1]["position"]["y"];
     var x_Reye = arr[2]["position"]["x"];
     var y_Reye = arr[2]["position"]["y"];
+    
+    var shoulders = shoulderUtils.checkShoulderDisplacement(
+      x_Lshoulder, y_Lshoulder, x_Rshoulder, y_Rshoulder,
+      aves['leftShoulder']['x'], aves['leftShoulder']['y'],
+      aves['rightShoulder']['x'], aves['rightShoulder']['y'],
+      200
+    );
      
     poseList.push(pose);
     console.log(pose);
@@ -135,10 +135,36 @@ async function findPoses(video, aves) {
     const fbFaceTilt = Posture.fbFaceTilt(y_nose, y_Leye, y_Reye, 
       aves['nose']['y'], aves['leftEye']['y'], aves['rightEye']['y'], 12
     );
-    //console.log(fbFaceTilt);
+    console.log(fbFaceTilt);
+    console.log(fTilt && shoulders);
     
+    var thisPose = {
+      "date": new Date().getTime(), "goodPosture": shoulders
+    }
+
+    posturePeriod.push(thisPose)
+
+    if (thisPose.goodPosture || posturePeriod.length >= maxlen) {
+      postureHistory = postureHistory.concat(posturePeriod)
+      
+      if (posturePeriod.length >= maxlen) {
+        // TODO: Trigger alert
+        console.log("Bad boy")
+      } else {
+        console.log("Good posture")
+      }
+
+      posturePeriod.length = 0
+    } else {
+      console.log("Bad posture")
+    }
+
+    console.log(postureHistory)
+    console.log(posturePeriod)
     await sleep(5000); // wait 5 seconds before logging next frame
   }
+
+  return postureHistory;
 }
 
 async function calibrate() {
@@ -205,13 +231,8 @@ async function calibrate() {
     aves['leftShoulder']['x'] += x_Lshoulder;
     aves['leftShoulder']['y'] += y_Lshoulder;
 
-    poseList.push(pose);
-    console.log(pose);
-    //console.log(poseList); // output the list of poses for debugging
-    console.log(x_Lshoulder);
-    console.log(y_Lshoulder);
-
     timer -= 1000
+    console.log(timer / 1000 + " seconds remaining")
     await sleep(1000); // wait 1 second before logging next frame
   }
 
@@ -249,7 +270,7 @@ export async function bindPage() {
   }
 
   const aves = await calibrate(video);
-  findPoses(video, aves);
+  const postureHistory = await findPoses(video, aves, maxlen);
 }
 
 navigator.getUserMedia = navigator.getUserMedia ||

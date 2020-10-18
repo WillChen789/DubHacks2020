@@ -1,0 +1,13 @@
+.monitorCombination {
+  float: right;
+  background-color: #8f8f8f;
+}
+
+.monitorCircle {
+  display: inline-block;
+  margin: 20px;
+}
+
+.monitorName {
+  display: inline-block;
+}

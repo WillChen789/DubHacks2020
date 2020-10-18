@@ -1,17 +1,18 @@
 import React from 'react';
+import './Monitors.css';
 
 function Monitor(props) {
   let monitor = []
   if (props.type == "Good") {
     monitor.push(
       <div className="monitorCircle">
-        <img src="../assets/green_circle.png" alt="green circle"/>
+        <img src="./assets/green_circle.png" alt="green circle"/>
       </div>
     )
   } else {
     monitor.push(
       <div className="monitorCircle">
-        <img src="../assets/red_circle.png" alt="red circle"/>
+        <img src="./assets/red_circle.png" alt="red circle"/>
       </div>
     )
   }
@@ -32,7 +33,9 @@ export class Monitors extends React.Component {
     return (
       <div className="monitorCombination">
         <Monitor type="Good" name="Posture"/>
-        <Monitor type="Bad" name="Hydration"/>
+        <Monitor type="Bad" name="Eyes"/>
+        <Monitor type="Good" name="Hydration"/>
+        <Monitor type="Bad" name="Break"/>
       </div>
     );
   }

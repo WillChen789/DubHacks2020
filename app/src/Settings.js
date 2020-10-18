@@ -8,9 +8,7 @@ function Options(props) {
           <input
             type="radio"
             name="option"
-            value="option1"
-            className="form-element-input"
-            onClick={props.onClick}
+            onClick={console.log("You pressed:" + props.values[0])}
           />
           {props.values[0]}
         </label>
@@ -21,9 +19,7 @@ function Options(props) {
           <input
             type="radio"
             name="option"
-            value="option2"
-            className="form-element-input"
-            onClick={props.onClick}
+            onClick={console.log("You pressed:" + props.values[1])}
           />
           {props.values[1]}
         </label>
@@ -34,9 +30,7 @@ function Options(props) {
           <input
             type="radio"
             name="option"
-            value="option3"
-            className="form-element-input"
-            onClick={props.onClick}
+            onClick={console.log("You pressed:" + props.values[2])}
           />
           {props.values[2]}
         </label>
@@ -47,9 +41,7 @@ function Options(props) {
           <input
             type="radio"
             name="option"
-            value="option4"
-            className="form-element-input"
-            onClick={props.onClick}
+            onClick={console.log("You pressed:" + props.values[3])}
           />
           {props.values[3]}
         </label>
@@ -59,9 +51,6 @@ function Options(props) {
 }
 
 export class Settings extends React.Component {
-  handleClick() {
-  }
-
   render() {
     let title = this.props.settingTitle
     return (
@@ -74,7 +63,6 @@ export class Settings extends React.Component {
         <div className="radios">
           <Options
             values = {["100%", "75%", "50%", "25%"]}
-            onClick={this.handleClick()}
           />
         </div>
       </div>
