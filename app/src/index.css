@@ -23,18 +23,30 @@ code {
   margin: 10px 100px 10px 100px;
 }
 
-h1,
-.App {
-  font-size: 48px;
+.title h1 {
+  margin: 10px;
+  font-size: 50px;
   font-weight: 900;
   text-align: center;
 }
 
-h2,
-.App {
+.title h2 {
+  margin: 0px;
+  font-size: 24px;
+  font-weight: 400;
+  font-style: italic;
+  text-align: center;
+}
+
+.App h2 {
   font-size: 30px;
 }
 
+
+.Forms{ 
+  display: flex;
+  flex-direction: row;
+}
 .Form {
   display: inline-block;
   margin: 20px;
@@ -42,14 +54,17 @@ h2,
 
 
 .col1 {
+  margin: 0px;
   display: inline;
 }
 
 .col2 {
+  margin: 0px;
   display: flex;
   width: 20%;
   background-color: #8691AB;
   padding: 15px;
+  border-radius: 15px;
 }
 
 .Bottom {
