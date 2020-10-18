@@ -64,7 +64,7 @@ export class Settings extends React.Component {
         <div className="radios">
           <Options
             title = {this.props.settingTitle}
-            values={["100%", "75%", "50%", "25%"]}
+            values={[" 100%", " 75%", " 50%", " 25%"]}
           />
         </div>
       </div>

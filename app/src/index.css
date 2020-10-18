@@ -25,7 +25,10 @@ code {
 
 h1,
 .App {
-  font-size: 40px;
+  font-size: 48px;
+  font-weight: 900;
+  text-align: center;
+  margin: 0px;
 }
 
 h2,
