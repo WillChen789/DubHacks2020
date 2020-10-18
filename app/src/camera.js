@@ -160,7 +160,6 @@ async function findPoses(video, aves, maxlen) {
 }
 
 async function calibrate(video) {
-  console.log("Inside");
   let timer = 10000;
   let aves = {
     'nose': {
@@ -181,15 +180,12 @@ async function calibrate(video) {
   }
 
   while (timer > 0) {
-    console.log("reached while");
     const posenet = require('@tensorflow-models/posenet');
 
     async function estimatePoseOnImage(video) {
-      console.log("entered estimate");
 
       // load the posenet model from a checkpoint
       const net = await posenet.load();
-      console.log("still in estimate");
 
       const pose = await net.estimateSinglePose(video, {
         flipHorizontal: false
@@ -199,7 +195,6 @@ async function calibrate(video) {
 
 
     const pose = await estimatePoseOnImage(video);
-    console.log("still in while...");
 
     const arr = pose["keypoints"];
 
@@ -266,9 +261,7 @@ export async function bindPage() {
     info.style.display = 'block';
     throw e;
   }
-  console.log("Reached");
   const aves = await calibrate(video);
-  console.log("Calibrated);")
   const postureHistory = await findPoses(video, aves, maxlen);
 }
 
