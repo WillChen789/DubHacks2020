@@ -15,8 +15,6 @@ code {
 .App {
   background-color: #282c34;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   color: white;
   font-size: 20px;
 }
@@ -36,9 +34,6 @@ h2,
   margin: 20px;
 }
 
-.monitorCombination {
-  float: right;
-}
 
 .Next {
   display: inline-block;
