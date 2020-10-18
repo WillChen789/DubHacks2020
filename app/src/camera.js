@@ -31,6 +31,9 @@ export function status(){
   return posture;
 }
 var doNotDistrub = false;
+var radioCol1 = 0;
+var radioCol2 = 0;
+var radioCol3 = 0;
 
 /**
  * Loads a the camera to be used in the demo
@@ -95,7 +98,7 @@ async function findPoses(video, aves, maxlen) {
     }
 
     const pose = await estimatePoseOnImage(video);
-    const arr = pose["keypoints"];\
+    const arr = pose["keypoints"];
 
     var x_Lshoulder = arr[5]["position"]["x"];
     var y_Lshoulder = arr[5]["position"]["y"];
