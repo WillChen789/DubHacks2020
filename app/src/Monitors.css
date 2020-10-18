@@ -1,37 +1,27 @@
+.monitorCombination {
+  float: right;
+  background-color: #8f8f8f;
+}
+
+.monitorCircle {
+  display: inline-block;
+  margin: 20px;
+}
+
 .monitorName {
-   display: inline;
+  display: inline-block;
 }
 
 h3 {
-  font-size: 20px;
-  margin: 8px;
+  font-size: 25px;
 }
 
-.green_dot {
-    display: inline;
-    align-self: center;
-    margin-right: 20px;
-    background-color: green;
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
+.resize {
+    width: 40px;
+    height: auto;
 }
 
-.red_dot {
-    display: inline;
-    align-self: center;
-    margin-right: 20px;
-    background-color: red;
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-}
-
-.container {
-    display: flex;
-    justify-content: flex-start;
-}
-
-.watson {
-    justify-content: flex-start;
+.resize {
+    width: 30px;
+    height: auto;
 }
