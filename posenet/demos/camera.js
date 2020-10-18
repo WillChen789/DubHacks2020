@@ -75,7 +75,7 @@ var poseList = [];  // running list of poses to append to
  * Feeds an image to posenet to estimate poses - this is where the magic
  * happens. This function loops with a requestAnimationFrame method.
  */
-async function findPoses(video, aves) {
+async function findPoses(video, aves, maxlen) {
   var postureHistory = []
   var posturePeriod = []
   var d = new Date()
@@ -134,11 +134,16 @@ async function findPoses(video, aves) {
     }
 
     if (!thisPose.goodPosture) {
+      // Bad posture
       posturePeriod.push(thisPose)
+      if (posturePeriod.length == maxlen) {
+        postureHistory.concat(posturePeriod)
+        posturePeriod.length = 0;
+      }
     } else {
+      // Good posture!
       postureHistory.concat(posturePeriod)
       posturePeriod.length = 0;
-      // TODO: Alert function
     }
 
     await sleep(5000); // wait 5 seconds before logging next frame
