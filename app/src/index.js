@@ -18,13 +18,6 @@ class App extends React.Component {
     return (
       <div className="App">
           <div>
-              <div id="main" style={{display: 'inline'}}>
-                  <video id="video" playsInline style={{display: 'inline'}}>
-                  </video>
-                  <canvas id="output" />
-              </div>
-              <div id="info" style={{display: 'none'}}>
-              </div>
           </div>
           <div className="title">
               <h1>
@@ -47,6 +40,13 @@ class App extends React.Component {
                         <Settings settingTitle="Eye Sensitivity"/>
                       </div>
                   </div>
+              </div>
+              <div id="main" style={{display: 'inline'}}>
+                  <video id="video" playsInline style={{display: 'inline'}}>
+                  </video>
+                  <canvas id="output" />
+              </div>
+              <div id="info" style={{display: 'none'}}>
               </div>
               <div className="col2">
                 <Monitors/>
