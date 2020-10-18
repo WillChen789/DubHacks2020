@@ -15,6 +15,7 @@
  * =============================================================================
  */
 import Stats from 'stats.js';
+import * as shoulderUtils from './checkShoulders.js';
 
 import { drawBoundingBox, drawKeypoints, drawSkeleton, isMobile, toggleLoadingUI, tryResNetButtonName, tryResNetButtonText, updateTryResNetButtonDatGuiCss } from './demo_util';
 
@@ -73,7 +74,7 @@ var poseList = [];  // running list of poses to append to
  * Feeds an image to posenet to estimate poses - this is where the magic
  * happens. This function loops with a requestAnimationFrame method.
  */
-async function findPoses(video) {
+async function findPoses(video, aves) {
   while (1) {
     const posenet = require('@tensorflow-models/posenet');
 
@@ -98,6 +99,15 @@ async function findPoses(video) {
     //});
     var x_Lshoulder = arr[5]["position"]["x"];
     var y_Lshoulder = arr[5]["position"]["y"];
+    var x_Rshoulder = arr[6]["position"]["x"];
+    var y_Rshoulder = arr[6]["position"]["y"];
+    const goodPosture = shoulderUtils.checkShoulderDisplacement(
+      x_Lshoulder, y_Lshoulder, x_Rshoulder, y_Rshoulder,
+      aves['leftShoulder']['x'], aves['leftShoulder']['y'],
+      aves['rightShoulder']['x'], aves['rightShoulder']['y'],
+      200
+    );
+    console.log(goodPosture);
     //var y_L = 
     //var x_R = 
     //var y_R = 
@@ -111,7 +121,7 @@ async function findPoses(video) {
 }
 
 async function calibrate() {
-  let timer  = 10000;
+  let timer = 10000;
   let aves = {
     'nose': {
       'x': 0, 'y': 0
@@ -156,7 +166,7 @@ async function calibrate() {
 
     var x_Leye = arr[1]["position"]["x"];
     var y_Leye = arr[1]["position"]["y"];
-   
+
     var x_Rshoulder = arr[6]["position"]["x"];
     var y_Rshoulder = arr[6]["position"]["y"];
 
@@ -184,7 +194,7 @@ async function calibrate() {
     await sleep(1000); // wait 1 second before logging next frame
   }
 
-  
+
   aves['nose']['x'] /= 10;
   aves['nose']['y'] /= 10;
   aves['rightEye']['x'] /= 10;
@@ -197,6 +207,7 @@ async function calibrate() {
   aves['leftShoulder']['y'] /= 10;
 
   console.log(aves);
+  return aves;
 }
 
 /**
@@ -216,7 +227,8 @@ export async function bindPage() {
     throw e;
   }
 
-  calibrate(video);
+  const aves = await calibrate(video);
+  findPoses(video, aves);
 }
 
 navigator.getUserMedia = navigator.getUserMedia ||
