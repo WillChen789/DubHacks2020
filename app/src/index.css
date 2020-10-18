@@ -30,3 +30,8 @@ h2,
   display: inline-block;
   margin: 20px;
 }
+
+.monitorCombination {
+  position: absolute;
+  float: right;
+}
