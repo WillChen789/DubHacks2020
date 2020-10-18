@@ -28,7 +28,7 @@ class App extends React.Component {
           </div>
           <div className="title">
               <h1>
-                Posture?
+                ImPosture
               </h1>
               <h2>
                 The home workplace health manager
