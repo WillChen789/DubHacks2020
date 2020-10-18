@@ -76,6 +76,9 @@ var poseList = [];  // running list of poses to append to
  * happens. This function loops with a requestAnimationFrame method.
  */
 async function findPoses(video, aves) {
+  var postureHistory = []
+  var posturePeriod = []
+  var d = new Date()
   while (1) {
     const posenet = require('@tensorflow-models/posenet');
 
@@ -89,8 +92,6 @@ async function findPoses(video, aves) {
       return pose;
     }
 
-    const imageElement = document.getElementById('cat');
-
     const pose = await estimatePoseOnImage(video);
     const arr = pose["keypoints"];
     //const score = pose[]
@@ -102,13 +103,7 @@ async function findPoses(video, aves) {
     var y_Lshoulder = arr[5]["position"]["y"];
     var x_Rshoulder = arr[6]["position"]["x"];
     var y_Rshoulder = arr[6]["position"]["y"];
-    const goodPosture = shoulderUtils.checkShoulderDisplacement(
-      x_Lshoulder, y_Lshoulder, x_Rshoulder, y_Rshoulder,
-      aves['leftShoulder']['x'], aves['leftShoulder']['y'],
-      aves['rightShoulder']['x'], aves['rightShoulder']['y'],
-      200
-    );
-    console.log(goodPosture);
+    
     //var y_L = 
     //var x_R = 
     //var y_R = 
@@ -121,13 +116,31 @@ async function findPoses(video, aves) {
     var y_Reye = arr[2]["position"]["y"];
      
     poseList.push(pose);
-    console.log(pose);
+    console.log(pose); 
     //console.log(poseList); // output the list of poses for debugging
     console.log(x_Lshoulder);
     console.log(y_Lshoulder);
 
     var fTilt = Posture.faceTilt(x_nose, y_nose, x_Leye, y_Leye, x_Reye, y_Reye);
+    var shoulders = shoulderUtils.checkShoulderDisplacement(
+      x_Lshoulder, y_Lshoulder, x_Rshoulder, y_Rshoulder,
+      aves['leftShoulder']['x'], aves['leftShoulder']['y'],
+      aves['rightShoulder']['x'], aves['rightShoulder']['y'],
+      200
+    );
     
+    var thisPose = {
+      "date": getTime(), "goodPosture": fTilt && shoulders
+    }
+
+    if (!thisPose.goodPosture) {
+      posturePeriod.push(thisPose)
+    } else {
+      postureHistory.concat(posturePeriod)
+      posturePeriod.length = 0;
+      // TODO: Alert function
+    }
+
     await sleep(5000); // wait 5 seconds before logging next frame
   }
 }
