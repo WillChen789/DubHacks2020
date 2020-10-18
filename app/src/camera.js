@@ -14,8 +14,8 @@
  * limitations under the License.
  * =============================================================================
  */
-import * as shoulderUtils from '../../app/src/checkShoulders.js';
-import * as Posture from '../../app/src/postureCheck.js';
+import * as shoulderUtils from './checkShoulders.js';
+import * as Posture from './postureCheck.js';
 
 const videoWidth = 600;
 const videoHeight = 500;
@@ -25,15 +25,11 @@ const videoHeight = 500;
  */
 var gatherVideo = true;
 var maxlen = 10;
-var sensitivity = 0;
 var posture = false;
 
 export function status(){
   return posture;
 }
-var radioCol1 = 0;
-var radioCol2 = 0;
-var radioCol3 = 0;
 var doNotDistrub = false;
 
 /**
@@ -99,20 +95,12 @@ async function findPoses(video, aves, maxlen) {
     }
 
     const pose = await estimatePoseOnImage(video);
-    const arr = pose["keypoints"];
-    //const score = pose[]
-    //var x_Lshoulder = '';//pose.then(); //pose[5];
-    //Promise.resolve(pose).then(value=>{
-    //  x_Lshoulder=value;
-    //});
+    const arr = pose["keypoints"];\
+
     var x_Lshoulder = arr[5]["position"]["x"];
     var y_Lshoulder = arr[5]["position"]["y"];
     var x_Rshoulder = arr[6]["position"]["x"];
     var y_Rshoulder = arr[6]["position"]["y"];
-
-    //var y_L = 
-    //var x_R = 
-    //var y_R = 
 
     var y_nose = arr[0]["position"]["y"];
     var x_Leye = arr[1]["position"]["x"];
