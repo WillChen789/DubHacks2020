@@ -20,9 +20,16 @@ import * as Posture from '../../app/src/postureCheck.js';
 
 import { drawBoundingBox, drawKeypoints, drawSkeleton, isMobile, toggleLoadingUI, tryResNetButtonName, tryResNetButtonText, updateTryResNetButtonDatGuiCss } from './demo_util';
 
+
 const videoWidth = 600;
 const videoHeight = 500;
-const stats = new Stats();
+
+/**
+ * State of the session
+ */
+var gatherVideo = true;
+var maxlen = 10;
+var sensitivity = 0;
 
 /**
  * Loads a the camera to be used in the demo
@@ -67,10 +74,6 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-var poseList = [];  // running list of poses to append to
-
-
-
 /**
  * Feeds an image to posenet to estimate poses - this is where the magic
  * happens. This function loops with a requestAnimationFrame method.
@@ -78,7 +81,7 @@ var poseList = [];  // running list of poses to append to
 async function findPoses(video, aves, maxlen) {
   var postureHistory = []
   var posturePeriod = []
-  while (1) {
+  while (gatherVideo) {
     const posenet = require('@tensorflow-models/posenet');
 
     async function estimatePoseOnImage(video) {
@@ -113,20 +116,29 @@ async function findPoses(video, aves, maxlen) {
     var y_Leye = arr[1]["position"]["y"];
     var x_Reye = arr[2]["position"]["x"];
     var y_Reye = arr[2]["position"]["y"];
-     
-
+    
     var shoulders = shoulderUtils.checkShoulderDisplacement(
       x_Lshoulder, y_Lshoulder, x_Rshoulder, y_Rshoulder,
       aves['leftShoulder']['x'], aves['leftShoulder']['y'],
       aves['rightShoulder']['x'], aves['rightShoulder']['y'],
       200
     );
-    const fTilt = Posture.faceTilt(x_nose, y_nose, x_Leye, y_Leye, x_Reye, y_Reye, 
-      aves['nose']['x'], aves['nose']['y'], 
+     
+    poseList.push(pose);
+    console.log(pose);
+    //console.log(poseList); // output the list of poses for debugging
+    //console.log(x_Lshoulder);
+    //console.log(y_Lshoulder);
+
+    var sideTilt = Posture.sideFaceTilt(x_Leye, y_Leye, x_Reye, y_Reye, 
       aves['leftEye']['x'], aves['leftEye']['y'], 
-      aves['rightEye']['x'], aves['rightEye']['y'], 200
+      aves['rightEye']['x'], aves['rightEye']['y'], 50
     );
-    console.log(fTilt && shoulders);
+
+    var fbFaceTilt = Posture.fbFaceTilt(y_nose, y_Leye, y_Reye, 
+      aves['nose']['y'], aves['leftEye']['y'], aves['rightEye']['y'], 12
+    );
+    console.log(fbFaceTilt && sideTilt && shoulders);
     
     var thisPose = {
       "date": new Date().getTime(), "goodPosture": shoulders
@@ -153,6 +165,8 @@ async function findPoses(video, aves, maxlen) {
     console.log(posturePeriod)
     await sleep(5000); // wait 5 seconds before logging next frame
   }
+
+  return postureHistory;
 }
 
 async function calibrate() {
@@ -258,7 +272,7 @@ export async function bindPage() {
   }
 
   const aves = await calibrate(video);
-  findPoses(video, aves, 10);
+  const postureHistory = await findPoses(video, aves, maxlen);
 }
 
 navigator.getUserMedia = navigator.getUserMedia ||

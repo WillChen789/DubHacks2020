@@ -38,7 +38,7 @@ class App extends React.Component {
           <Monitors/>
         </div>
         <div>
-          <Bottom_buttons/>
+          <Bottom_buttons className="Bottom"/>
         </div>
       </div>
     );
