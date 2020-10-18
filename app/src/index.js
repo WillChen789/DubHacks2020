@@ -2,60 +2,89 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+function Options(props) {
+  return (
+    <form>
+      <div className="form-element">
+        <label>
+          <input
+            type="radio"
+            name="option"
+            value="option1"
+            className="form-element-input"
+          />
+          {props.values[0]}
+        </label>
+      </div>
+
+      <div className="form-element">
+        <label>
+          <input
+            type="radio"
+            name="option"
+            value="option2"
+            className="form-element-input"
+          />
+          {props.values[1]}
+        </label>
+      </div>
+
+      <div className="form-element">
+        <label>
+          <input
+            type="radio"
+            name="option"
+            value="option3"
+            className="form-element-input"
+          />
+          {props.values[2]}
+        </label>
+      </div>
+
+      <div className="form-element">
+        <label>
+          <input
+            type="radio"
+            name="option"
+            value="option4"
+            className="form-element-input"
+          />
+          {props.values[3]}
+        </label>
+      </div>
+    </form>
+  );
+}
+
 class Settings extends React.Component {
   render() {
+    let title = this.props.settingTitle
     return (
-      <div className="radios">
-        <form>
-          <div className="form-check">
-            <label>
-              <input
-                type="radio"
-                name="react-tips"
-                value="option1"
-                checked={true}
-                className="form-check-input"
-              />
-              Option 1
-            </label>
-          </div>
+      <div>
+        <div>
+          <h2>
+            {title}
+          </h2>
+        </div>
 
-          <div className="form-check">
-            <label>
-              <input
-                type="radio"
-                name="react-tips"
-                value="option2"
-                className="form-check-input"
-              />
-              Option 2
-            </label>
-          </div>
-
-          <div className="form-check">
-            <label>
-              <input
-                type="radio"
-                name="react-tips"
-                value="option3"
-                className="form-check-input"
-              />
-              Option 3
-            </label>
-          </div>
-
-          <div className="form-group">
-            <button className="btn btn-primary mt-2" type="submit">
-              Save
-            </button>
-          </div>
-        </form>
+        <div className="radios">
+          <Options
+            values = {["100%", "75%", "50%", "25%"]}
+          />
+        </div>
       </div>
-    )
+    );
   }
 }
 
 class App extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+        selectedOption: "option1"
+      };
+    }
+
   render() {
     return (
       <div className="App">
@@ -66,7 +95,9 @@ class App extends React.Component {
           The home workplace health manager
         </h2>
         <div>
-          <Settings/>
+          <Settings
+          settingTitle="Example Form  "
+          />
         </div>
       </div>
     );
