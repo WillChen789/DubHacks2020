@@ -43,3 +43,7 @@ h2,
 .Bottom {
   font-size: 40px;
 }
+
+.floatL { float:left; }
+
+.clear { clear:both;}

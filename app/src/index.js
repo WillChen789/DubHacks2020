@@ -17,27 +17,29 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <div className="Next">
-          <h1>
-            Posture?
-          </h1>
-          <h2>
-            The home workplace health manager
-          </h2>
-          <div className="Form">
-            <Settings settingTitle="Notifications"/>
+        <div className="floatL">
+          <div className="Next">
+            <h1>
+              Posture?
+            </h1>
+            <h2>
+              The home workplace health manager
+            </h2>
+            <div className="Form">
+              <Settings settingTitle="Notifications"/>
+            </div>
+            <div className="Form">
+              <Settings settingTitle="Posture Sensitivity"/>
+            </div>
+            <div className="Form">
+              <Settings settingTitle="Eye Sensitivity"/>
+            </div>
           </div>
-          <div className="Form">
-            <Settings settingTitle="Posture Sensitivity"/>
-          </div>
-          <div className="Form">
-            <Settings settingTitle="Eye Sensitivity"/>
+          <div className="Next">
+            <Monitors/>
           </div>
         </div>
-        <div className="Next">
-          <Monitors/>
-        </div>
-        <div>
+        <div className="clear">
           <Bottom_buttons className="Bottom"/>
         </div>
       </div>

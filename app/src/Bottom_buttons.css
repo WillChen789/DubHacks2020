@@ -1,11 +1,6 @@
-.buttonW {
-    width: "100px";
-    height: "300px";
-}
-
 .block {
-  display: block;
-  width: 100%;
+  display: inline-block;
+  width: 50%;
   border: none;
   background-color: #4CAF50;
   padding: 14px 28px;
