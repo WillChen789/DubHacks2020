@@ -15,6 +15,7 @@
  * =============================================================================
  */
 import Stats from 'stats.js';
+import * as Posture from '.../app/src/postureCheck.js';
 
 import { drawBoundingBox, drawKeypoints, drawSkeleton, isMobile, toggleLoadingUI, tryResNetButtonName, tryResNetButtonText, updateTryResNetButtonDatGuiCss } from './demo_util';
 
@@ -98,14 +99,22 @@ async function findPoses(video) {
     //});
     var x_Lshoulder = arr[5]["position"]["x"];
     var y_Lshoulder = arr[5]["position"]["y"];
-    //var y_L = 
-    //var x_R = 
-    //var y_R = 
+    
+    var x_nose = arr[0]["position"]["x"];
+    var y_nose = arr[0]["position"]["y"];
+    var x_Leye = arr[1]["position"]["x"];
+    var y_Leye = arr[1]["position"]["y"];
+    var x_Reye = arr[2]["position"]["x"];
+    var y_Reye = arr[2]["position"]["y"];
+     
     poseList.push(pose);
     console.log(pose);
     //console.log(poseList); // output the list of poses for debugging
     console.log(x_Lshoulder);
     console.log(y_Lshoulder);
+
+    var fTilt = Posture.faceTilt(x_nose, y_nose, x_Leye, y_Leye, x_Reye, y_Reye);
+    
     await sleep(5000); // wait 5 seconds before logging next frame
   }
 }
