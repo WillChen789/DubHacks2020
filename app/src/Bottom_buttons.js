@@ -1,5 +1,5 @@
 import React from 'react';
-//import { bindPage } from '../../posenet/demos/camera.js'
+import bindPage from './camera.js'
 import './Bottom_buttons.css';
 
 function Buttons(props) {
