@@ -1,18 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { transitions, positions, Provider as AlertProvider } from 'react-alert'
-import AlertTemplate from 'react-alert-template-basic'
-import { useAlert } from 'react-alert'
 import './index.css';
-
-const options = {
-  // you can also just use 'bottom center'
-  position: positions.BOTTOM_CENTER,
-  timeout: 5000,
-  offset: '30px',
-  // you can also just use 'scale'
-  transition: transitions.SCALE
-}
 
 
 function Options(props) {
@@ -75,7 +63,6 @@ function Options(props) {
 
 class Settings extends React.Component {
   handleClick() {
-    alert("Wowza an alert!")
   }
 
   render() {
@@ -98,17 +85,52 @@ class Settings extends React.Component {
   }
 }
 
-class Monitors extends React.Component {
-
+function Monitor(props) {
+  let monitor = []
+  if (props.type == "Good") {
+    monitor.push(
+      <div className="monitorCircle">
+        <img src="../assets/green_circle.png" alt="green circle"/>
+      </div>
+    )
+  } else {
+    monitor.push(
+      <div className="monitorCircle">
+        <img src="../assets/red_circle.png" alt="red circle"/>
+      </div>
+    )
+  }
+  monitor.push(
+    <div className="monitorName">
+      <h2>{props.name}</h2>
+    </div>
+  )
+  return (
+    <div>
+      {monitor}
+    </div>
+  );
 }
+
+class Monitors extends React.Component {
+  render() {
+    return (
+      <div className="monitorCombination">
+        <Monitor type="Good" name="Posture"/>
+        <Monitor type="Bad" name="Hydration"/>
+      </div>
+    );
+  }
+}
+
 
 class App extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
         selectedOption: "option1"
-      };
-    }
+      }
+  }
 
   render() {
     return (
@@ -120,19 +142,16 @@ class App extends React.Component {
           The home workplace health manager
         </h2>
         <div className="Form">
-          <AlertProvider template={AlertTemplate} {...options}>
-            <Settings settingTitle="Notifications"/>
-          </AlertProvider>
+          <Settings settingTitle="Notifications"/>
         </div>
         <div className="Form">
-          <Settings
-          settingTitle="Posture Sensitivity"
-          />
+          <Settings settingTitle="Posture Sensitivity"/>
         </div>
         <div className="Form">
-          <Settings
-          settingTitle="Eye Sensitivity"
-          />
+          <Settings settingTitle="Eye Sensitivity"/>
+        </div>
+        <div>
+          <Monitors/>
         </div>
       </div>
     );
